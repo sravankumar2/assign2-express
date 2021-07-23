@@ -1,0 +1,61 @@
+<html>
+    <head>   
+    <script>     
+        let data;
+        var index=0;
+         fetch("http://localhost:3000/players")
+        .then(response=>response.json()).then(JsonData=>{
+            data=JsonData           
+           console.log(data.length)
+            createDetails(data,index)
+        })
+        
+                function increase(){
+                    if(index<data.length-1){
+                    index++;
+                   
+                    createDetails(data,index)
+                    }
+                }
+                
+                function decrease(){
+                    if(index>0){
+                    index--;
+                 
+                    createDetails(data,index)
+                    }
+                }
+
+        function createDetails(data,count){ 
+            document.getElementById("img").src=data[count].imgUrl;           
+            document.getElementById("name").innerHTML="Name: "+data[count].name;           
+            document.getElementById("type").innerHTML="Type: "+data[count].type;
+            document.getElementById("runs").innerHTML="Runs: "+data[count].runs; 
+            document.getElementById("country").innerHTML="Country: "+data[count].country;
+     
+        }
+       
+
+    </script>
+    </head> 
+    <body>
+        <div style="display: flex;flex-direction:column;;justify-content: center;align-items: center;border:2px solid #ccc;box-shadow: 2px 2px 0px 2px #ccc;">
+        <h1>Details Page</h1>
+        <div>
+            <div id="loop" style="display: flex;">
+                <div style="width: 300px;border-radius:10%;margin-right: 20px;">
+                    <img src="" alt="playerImg" style="width: 100%;" id="img"/>
+                </div>
+                <div>
+                    <h1 id="name"></h1>
+                    <p id="type"></p>
+                    <p id="runs"></p>
+                    <p id="country"></p>
+                </div>                
+            </div>
+            <span style="margin-top: 10px;"><button onclick="decrease()">Prev</button>
+           <button onclick="increase()"style="margin-left:200px">Next</button></span>
+       </div>   
+        </div>
+    </body>
+</html>
